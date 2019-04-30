@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">QuizDroid</string>
+    <string name="topic_tag">Topic</string>
+    <string name="topic_name">topic_name</string>
+</resources>
