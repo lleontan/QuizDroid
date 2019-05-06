@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             var newButton:Button=Button(this)
             newButton.text=newTopic.name
                 newButton.setOnClickListener {
-                val intent = Intent(this, ActivityOverview::class.java)
+                val intent = Intent(this, QuestionMain::class.java)
                 intent.putExtra("questions", newTopic.questions as Serializable)
                     intent.putExtra("name", newTopic.name)
                     intent.putExtra("description", newTopic.description)
