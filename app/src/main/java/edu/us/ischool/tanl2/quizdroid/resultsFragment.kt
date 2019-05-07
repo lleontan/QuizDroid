@@ -68,10 +68,8 @@ class resultsFragment : Fragment() {
         if (qIndex >= questions.size) {
             next_question.text = "Finish"
             next_question.setOnClickListener {
-                val overviewFrag = overviewFragment.newInstance(questions, name, description)
-                transaction.replace(R.id.view_container, overviewFrag)
-                transaction.addToBackStack(null)
-                transaction.commit()
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
             }
         } else {
             next_question.setOnClickListener {
