@@ -1,13 +1,12 @@
 package edu.us.ischool.tanl2.quizdroid
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.overview_view.*
-import layout.question
+import layout.Quiz
 import java.io.Serializable
 import android.widget.TextView
 
@@ -18,15 +17,15 @@ import android.widget.TextView
 
 
 class overviewFragment:Fragment() {
-    private lateinit var questions:List<question>
+    private lateinit var Quizzes:List<Quiz>
     private lateinit var name:String
     private lateinit var description:String
     companion object {
-        fun newInstance(questions:List<question>, name:String, description:String): overviewFragment {
+        fun newInstance(Quizzes:List<Quiz>, name:String, description:String): overviewFragment {
 
             val args = Bundle()
             args.putString("name", name)
-            args.putSerializable("questions", questions as Serializable)
+            args.putSerializable("Quizzes", Quizzes as Serializable)
             args.putString("description", description)
             val fragment = overviewFragment()
             fragment.arguments = args
@@ -45,14 +44,14 @@ class overviewFragment:Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        questions=arguments?.getSerializable("questions")!! as ArrayList<question>
+        Quizzes=arguments?.getSerializable("Quizzes")!! as ArrayList<Quiz>
         name=arguments?.getString("name") as String
         description=arguments?.getString("description") as String
         val topic_name = activity!!.findViewById<TextView>(R.id.topic_name)
         topic_name.text=name
         topic_description.text=description
         procede.setOnClickListener {
-            val qFrag = questionFragment.newInstance(questions,name,description,0,0,0)
+            val qFrag = questionFragment.newInstance(Quizzes,name,description,0,0,0)
             val transaction = fragmentManager!!.beginTransaction()
             transaction.replace(R.id.view_container,qFrag)
             transaction.addToBackStack(null)

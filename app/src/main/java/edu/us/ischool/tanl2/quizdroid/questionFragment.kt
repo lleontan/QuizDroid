@@ -1,6 +1,5 @@
 package edu.us.ischool.tanl2.quizdroid
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,24 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import kotlinx.android.synthetic.main.layout_qa.*
-import kotlinx.android.synthetic.main.overview_view.*
-import layout.question
+import layout.Quiz
 import java.io.Serializable
 
 
 
 class questionFragment:Fragment() {
 
-    private lateinit var questions:List<question>
+    private lateinit var Quizzes:List<Quiz>
     private lateinit var name:String
     private lateinit var description:String
     companion object {
-        fun newInstance(questions:List<question>, name:String, description:String,qIndex:Int,
-                        right:Int,wrong:Int): questionFragment {
+        fun newInstance(Quizzes:List<Quiz>, name:String, description:String, qIndex:Int,
+                        right:Int, wrong:Int): questionFragment {
 
             val args = Bundle()
             args.putString("name", name)
-            args.putSerializable("questions", questions as Serializable)
+            args.putSerializable("Quizzes", Quizzes as Serializable)
             args.putString("description", description)
             args.putInt("qIndex", qIndex)
             args.putInt("right", right)
@@ -45,12 +43,12 @@ class questionFragment:Fragment() {
         // Inflate the layout for this fragment
         submitButton.isEnabled=false
 
-        questions=arguments?.getSerializable("questions") as ArrayList<question>
+        Quizzes=arguments?.getSerializable("Quizzes") as ArrayList<Quiz>
         name=arguments?.getString("name") as String
         description=arguments?.getString("description") as String
         q_topic_name.text=name
         var qIndex:Int=arguments?.getInt("qIndex",0)!!
-        var question=questions[qIndex]
+        var question=Quizzes[qIndex]
         question_name.text=question.question
         var rightAnswers:Int=arguments?.getInt("right",0)!!
         var wrongAnswers:Int=arguments?.getInt("wrong",0)!!
@@ -73,7 +71,7 @@ class questionFragment:Fragment() {
             }else{
                 wrongAnswers++
             }
-            val qFrag = resultsFragment.newInstance(questions,name,description,qIndex+1,rightAnswers,wrongAnswers)
+            val qFrag = resultsFragment.newInstance(Quizzes,name,description,qIndex+1,rightAnswers,wrongAnswers)
 
             transaction.replace(R.id.view_container,qFrag)
             transaction.addToBackStack(null)

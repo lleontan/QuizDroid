@@ -6,27 +6,24 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import kotlinx.android.synthetic.main.answer_layout.*
-import kotlinx.android.synthetic.main.layout_qa.*
-import kotlinx.android.synthetic.main.overview_view.*
-import layout.question
+import layout.Quiz
 import java.io.Serializable
 
 
 class resultsFragment : Fragment() {
 
-    private lateinit var questions: List<question>
+    private lateinit var Quizzes: List<Quiz>
     private lateinit var name: String
     private lateinit var description: String
 
     companion object {
-        fun newInstance(questions:List<question>, name:String, description:String,qIndex:Int,
-                        right:Int,wrong:Int): resultsFragment {
+        fun newInstance(Quizzes:List<Quiz>, name:String, description:String, qIndex:Int,
+                        right:Int, wrong:Int): resultsFragment {
 
             val args = Bundle()
             args.putString("name", name)
-            args.putSerializable("questions", questions as Serializable)
+            args.putSerializable("Quizzes", Quizzes as Serializable)
             args.putString("description", description)
             args.putInt("qIndex", qIndex)
             args.putInt("right", right)
@@ -50,14 +47,14 @@ class resultsFragment : Fragment() {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        questions = arguments?.getSerializable("questions") as ArrayList<question>
+        Quizzes = arguments?.getSerializable("Quizzes") as ArrayList<Quiz>
         name = arguments?.getString("name") as String
         description = arguments?.getString("description") as String
 
         a_topic_name.text = name
         var qIndex: Int = arguments?.getInt("qIndex", 0)!!
-        if (qIndex != questions.size) {
-            var question = questions[qIndex]
+        if (qIndex != Quizzes.size) {
+            var question = Quizzes[qIndex]
             next_question.text = question.question
         }
         var rightAnswers: Int = arguments?.getInt("right", 0)!!
@@ -65,7 +62,7 @@ class resultsFragment : Fragment() {
         right_answers.text = "$rightAnswers right"
         wrong_answers.text = "$wrongAnswers wrong"
         val transaction = fragmentManager!!.beginTransaction()
-        if (qIndex >= questions.size) {
+        if (qIndex >= Quizzes.size) {
             next_question.text = "Finish"
             next_question.setOnClickListener {
                 val intent = Intent(activity, MainActivity::class.java)
@@ -74,7 +71,7 @@ class resultsFragment : Fragment() {
         } else {
             next_question.setOnClickListener {
                 val qFrag =
-                    questionFragment.newInstance(questions, name, description, qIndex, rightAnswers, wrongAnswers)
+                    questionFragment.newInstance(Quizzes, name, description, qIndex, rightAnswers, wrongAnswers)
                 transaction.replace(R.id.view_container, qFrag)
                 transaction.addToBackStack(null)
                 transaction.commit()
