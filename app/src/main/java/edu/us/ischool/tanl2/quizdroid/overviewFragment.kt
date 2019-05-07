@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.overview_view.*
 import layout.question
 import java.io.Serializable
+import android.widget.TextView
+
+
+
+
 
 
 
 class overviewFragment:Fragment() {
-
     private lateinit var questions:List<question>
     private lateinit var name:String
     private lateinit var description:String
@@ -32,22 +36,27 @@ class overviewFragment:Fragment() {
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         questions=arguments?.getSerializable("questions")!! as ArrayList<question>
-         name=arguments?.getString("name") as String
-         description=arguments?.getString("description") as String
-         topic_name.text=name
-         topic_description.text=description
-         procede.setOnClickListener {
-             val qFrag = questionFragment.newInstance(questions,name,description,0,0,0)
-             val transaction = fragmentManager!!.beginTransaction()
-             transaction.replace(R.id.view_container,qFrag)
-             transaction.addToBackStack(null)
-             transaction.commit()
-         }
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.overview_view, container, false)
-        // Inflate the layout for this fragment
+
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        questions=arguments?.getSerializable("questions")!! as ArrayList<question>
+        name=arguments?.getString("name") as String
+        description=arguments?.getString("description") as String
+        val topic_name = activity!!.findViewById<TextView>(R.id.topic_name)
+        topic_name.text=name
+        topic_description.text=description
+        procede.setOnClickListener {
+            val qFrag = questionFragment.newInstance(questions,name,description,0,0,0)
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.replace(R.id.view_container,qFrag)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
 }

@@ -37,44 +37,52 @@ class questionFragment:Fragment() {
     }
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         submitButton.isEnabled=false
 
-         questions=arguments?.getSerializable("questions") as ArrayList<question>
-         val topicName=arguments?.getString("name") as String
-         q_topic_name.text=topicName
-         var qIndex:Int=arguments?.getInt("qIndex",0)!!
-         var question=questions[qIndex]
-         question_name.text=question.question
-         var rightAnswers:Int=arguments?.getInt("right",0)!!
-         var wrongAnswers:Int=arguments?.getInt("wrong",0)!!
-         var count=0
-         question.answers.map {
-             var newButton: RadioButton = RadioButton(activity)
-             newButton.text=it
-             newButton.id=count
-             newButton.setOnClickListener {
-                 submitButton.isEnabled=true
-             }
-             radios.addView(newButton)
-             count=count+1
-         }
-         submitButton.setOnClickListener {
-             val transaction = fragmentManager!!.beginTransaction()
+    }
 
-             if(radios.findViewById<RadioButton>(question.answerIndex).isChecked){
-                 rightAnswers++
-             }else{
-                 wrongAnswers++
-             }
-             val qFrag = questionFragment.newInstance(questions,name,description,qIndex+1,rightAnswers,wrongAnswers)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        // Inflate the layout for this fragment
+        submitButton.isEnabled=false
 
-             transaction.replace(R.id.view_container,qFrag)
-             transaction.addToBackStack(null)
-             transaction.commit()         }
+        questions=arguments?.getSerializable("questions") as ArrayList<question>
+        name=arguments?.getString("name") as String
+        description=arguments?.getString("description") as String
+        q_topic_name.text=name
+        var qIndex:Int=arguments?.getInt("qIndex",0)!!
+        var question=questions[qIndex]
+        question_name.text=question.question
+        var rightAnswers:Int=arguments?.getInt("right",0)!!
+        var wrongAnswers:Int=arguments?.getInt("wrong",0)!!
+        var count=0
+        question.answers.map {
+            var newButton: RadioButton = RadioButton(activity)
+            newButton.text=it
+            newButton.id=count
+            newButton.setOnClickListener {
+                submitButton.isEnabled=true
+            }
+            radios.addView(newButton)
+            count=count+1
+        }
+        submitButton.setOnClickListener {
+            val transaction = fragmentManager!!.beginTransaction()
+
+            if(radios.findViewById<RadioButton>(question.answerIndex).isChecked){
+                rightAnswers++
+            }else{
+                wrongAnswers++
+            }
+            val qFrag = resultsFragment.newInstance(questions,name,description,qIndex+1,rightAnswers,wrongAnswers)
+
+            transaction.replace(R.id.view_container,qFrag)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.layout_qa, container, false)
-        // Inflate the layout for this fragment
+
         return view
     }
 }
