@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:layout_width="50dp"
+                        android:title="Set Url"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/preferences_url"
+                        android:key="url_dialog"
+                        android:layout_margin="10dp"
+    />
+    <SeekBarPreference
+            android:defaultValue="1020"
+            android:min="10"
+            android:id="@+id/preference_minutes"
+            android:max="4800"
+            android:key="minutes_seek_bar"
+            android:summary="Minutes"
+            android:title="@string/download_minutes_title" />
+</PreferenceScreen>

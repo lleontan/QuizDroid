@@ -1,4 +1,4 @@
 package layout
 
-data class topic (val name:String,val description:String, val longDescription:String, var Quizzes:List<Quiz>){
+data class topic (val title:String, val desc:String, val longDescription:String="", var questions:List<Quiz>){
 }

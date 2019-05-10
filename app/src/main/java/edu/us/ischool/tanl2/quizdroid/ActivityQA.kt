@@ -17,12 +17,12 @@ class ActivityQA : AppCompatActivity() {
         setContentView(R.layout.layout_qa)
         submitButton.isEnabled=false
 
-        Quizzes=intent?.getSerializableExtra("Quizzes") as ArrayList<Quiz>
-        val topicName=intent?.getStringExtra("name") as String
+        Quizzes=intent?.getSerializableExtra("questions") as ArrayList<Quiz>
+        val topicName=intent?.getStringExtra("title") as String
         q_topic_name.text=topicName
         var qIndex:Int=intent.getIntExtra("qIndex",0)
         var question=Quizzes[qIndex]
-        question_name.text=question.question
+        question_name.text=question.text
         var rightAnswers:Int=intent.getIntExtra("rightCount",0)
         var wrongAnswers:Int=intent.getIntExtra("wrongCount",0)
         var count=0
@@ -38,14 +38,14 @@ class ActivityQA : AppCompatActivity() {
         }
         submitButton.setOnClickListener {
             val intent = Intent(this, AnswerActivity::class.java)
-            if(radios.findViewById<RadioButton>(question.answerIndex).isChecked){
+            if(radios.findViewById<RadioButton>(question.answer).isChecked){
                 rightAnswers++
             }else{
                 wrongAnswers++
             }
 
-            intent.putExtra("Quizzes", Quizzes as Serializable)
-            intent.putExtra("name", topicName)
+            intent.putExtra("questions", Quizzes as Serializable)
+            intent.putExtra("title", topicName)
             intent.putExtra("rightCount", rightAnswers)
             intent.putExtra("wrongCount", wrongAnswers)
             intent.putExtra("qIndex", qIndex+1)

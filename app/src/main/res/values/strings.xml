@@ -2,4 +2,7 @@
     <string name="app_name">QuizDroid</string>
     <string name="topic_tag">Topic</string>
     <string name="topic_name">topic_name</string>
+    <string name="preferences_title">Preferences</string>
+    <string name="download_minutes_title">Time between downloads</string>
+    <string name="basic_preferences">QuizDroid Preferences</string>
 </resources>

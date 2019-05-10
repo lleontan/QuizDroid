@@ -1,6 +1,5 @@
 package edu.us.ischool.tanl2.quizdroid
 
-import android.app.Application
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,19 +18,22 @@ class MainActivity : AppCompatActivity() {
         topics=topicRep.getTopicStore().getTopics()
         topics.map {newTopic:topic ->
             var newButton:Button=Button(this)
-            val name:String=newTopic.name
-            val desc:String=newTopic.description
+            val name:String=newTopic.title
+            val desc:String=newTopic.desc
             val bText="$name\n$desc"
             newButton.text=bText
                 newButton.setOnClickListener {
                 val intent = Intent(this, QuestionMain::class.java)
-                intent.putExtra("Quizzes", newTopic.Quizzes as Serializable)
-                    intent.putExtra("name", newTopic.name)
-                    intent.putExtra("description", newTopic.longDescription)
+                intent.putExtra("questions", newTopic.questions as Serializable)
+                    intent.putExtra("title", newTopic.title)
+                    intent.putExtra("desc", newTopic.desc)
                     startActivity(intent)
             }
             topic_list.addView(newButton)
-
+        }
+        preferences_button.setOnClickListener {
+            val intent = Intent(this, Preferences::class.java)
+            startActivity(intent)
         }
     }
 }

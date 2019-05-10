@@ -9,9 +9,9 @@ class QuestionMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_layout)
         intent
-        val questions=intent.getSerializableExtra("Quizzes")!! as ArrayList<Quiz>
-        val name=intent.getStringExtra("name") as String
-        val description=intent.getStringExtra("description") as String
+        val questions=intent.getSerializableExtra("questions")!! as ArrayList<Quiz>
+        val name=intent.getStringExtra("title") as String
+        val description=intent.getStringExtra("desc") as String
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = overviewFragment.newInstance(questions,name,description)

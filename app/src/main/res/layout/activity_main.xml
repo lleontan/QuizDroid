@@ -22,4 +22,10 @@
             android:scrollbars="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+    <Button android:id="@+id/preferences_button"
+            android:layout_width="match_parent"
+            android:text="Preferences"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
 </android.support.constraint.ConstraintLayout>

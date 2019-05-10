@@ -22,9 +22,9 @@ class questionFragment:Fragment() {
                         right:Int, wrong:Int): questionFragment {
 
             val args = Bundle()
-            args.putString("name", name)
-            args.putSerializable("Quizzes", Quizzes as Serializable)
-            args.putString("description", description)
+            args.putString("title", name)
+            args.putSerializable("questions", Quizzes as Serializable)
+            args.putString("desc", description)
             args.putInt("qIndex", qIndex)
             args.putInt("right", right)
             args.putInt("wrong", wrong)
@@ -43,13 +43,13 @@ class questionFragment:Fragment() {
         // Inflate the layout for this fragment
         submitButton.isEnabled=false
 
-        Quizzes=arguments?.getSerializable("Quizzes") as ArrayList<Quiz>
-        name=arguments?.getString("name") as String
-        description=arguments?.getString("description") as String
+        Quizzes=arguments?.getSerializable("questions") as ArrayList<Quiz>
+        name=arguments?.getString("title") as String
+        description=arguments?.getString("desc") as String
         q_topic_name.text=name
         var qIndex:Int=arguments?.getInt("qIndex",0)!!
         var question=Quizzes[qIndex]
-        question_name.text=question.question
+        question_name.text=question.text
         var rightAnswers:Int=arguments?.getInt("right",0)!!
         var wrongAnswers:Int=arguments?.getInt("wrong",0)!!
         var count=0
@@ -66,7 +66,7 @@ class questionFragment:Fragment() {
         submitButton.setOnClickListener {
             val transaction = fragmentManager!!.beginTransaction()
 
-            if(radios.findViewById<RadioButton>(question.answerIndex).isChecked){
+            if(radios.findViewById<RadioButton>(question.answer).isChecked){
                 rightAnswers++
             }else{
                 wrongAnswers++

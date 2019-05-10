@@ -24,9 +24,9 @@ class overviewFragment:Fragment() {
         fun newInstance(Quizzes:List<Quiz>, name:String, description:String): overviewFragment {
 
             val args = Bundle()
-            args.putString("name", name)
-            args.putSerializable("Quizzes", Quizzes as Serializable)
-            args.putString("description", description)
+            args.putString("title", name)
+            args.putSerializable("questions", Quizzes as Serializable)
+            args.putString("desc", description)
             val fragment = overviewFragment()
             fragment.arguments = args
             return fragment
@@ -44,9 +44,9 @@ class overviewFragment:Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Quizzes=arguments?.getSerializable("Quizzes")!! as ArrayList<Quiz>
-        name=arguments?.getString("name") as String
-        description=arguments?.getString("description") as String
+        Quizzes=arguments?.getSerializable("questions")!! as ArrayList<Quiz>
+        name=arguments?.getString("title") as String
+        description=arguments?.getString("desc") as String
         val topic_name = activity!!.findViewById<TextView>(R.id.topic_name)
         topic_name.text=name
         topic_description.text=description

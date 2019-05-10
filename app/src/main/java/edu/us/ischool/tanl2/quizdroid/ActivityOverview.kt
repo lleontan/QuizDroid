@@ -16,16 +16,16 @@ class ActivityOverview : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.overview_view)
         intent
-        Quizzes=intent.getSerializableExtra("Quizzes")!! as ArrayList<Quiz>
-        name=intent.getStringExtra("name") as String
-        description=intent.getStringExtra("description") as String
+        Quizzes=intent.getSerializableExtra("questions")!! as ArrayList<Quiz>
+        name=intent.getStringExtra("title") as String
+        description=intent.getStringExtra("desc") as String
         topic_name.text=name
         topic_description.text=description
         procede.setOnClickListener {
             val intent = Intent(this, ActivityQA::class.java)
-            intent.putExtra("Quizzes", Quizzes as Serializable)
-            intent.putExtra("name", name)
-            intent.putExtra("description", description)
+            intent.putExtra("questions", Quizzes as Serializable)
+            intent.putExtra("title", name)
+            intent.putExtra("desc", description)
             intent.putExtra("qIndex",0)
             intent.putExtra("rightCount",0)
             intent.putExtra("wrongCount",0)

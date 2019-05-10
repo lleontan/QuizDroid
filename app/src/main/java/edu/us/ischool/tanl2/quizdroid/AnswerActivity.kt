@@ -13,13 +13,13 @@ class AnswerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.answer_layout)
-        Quizzes = intent?.getSerializableExtra("Quizzes") as ArrayList<Quiz>
-        val topicName = intent?.getStringExtra("name") as String
+        Quizzes = intent?.getSerializableExtra("questions") as ArrayList<Quiz>
+        val topicName = intent?.getStringExtra("title") as String
         a_topic_name.text = topicName
         var qIndex: Int = intent.getIntExtra("qIndex", 0)
         if(qIndex!=Quizzes.size){
             var question = Quizzes[qIndex]
-            next_question.text = question.question
+            next_question.text = question.text
         }
         var rightAnswers: Int = intent.getIntExtra("rightCount",0)
         var wrongAnswers: Int = intent.getIntExtra("wrongCount", 0)
@@ -35,9 +35,9 @@ class AnswerActivity : AppCompatActivity() {
         } else {
             next_question.setOnClickListener {
                 val intent = Intent(this, ActivityQA::class.java)
-                intent.putExtra("Quizzes", Quizzes as Serializable)
+                intent.putExtra("questions", Quizzes as Serializable)
                 intent.putExtra("qIndex", qIndex)
-                intent.putExtra("name", topicName)
+                intent.putExtra("title", topicName)
                 intent.putExtra("rightCount", rightAnswers)
                 intent.putExtra("wrongCount", wrongAnswers)
                 startActivity(intent)
