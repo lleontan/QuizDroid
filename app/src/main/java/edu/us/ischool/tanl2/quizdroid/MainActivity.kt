@@ -8,6 +8,8 @@ import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 import layout.topic
 import java.io.Serializable
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var topics:Array<topic>
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val topicRep=application as QuizApp
+        topicRep.getTopicStore().store()
         topics=topicRep.getTopicStore().getTopics()
         topics.map {newTopic:topic ->
             var newButton:Button=Button(this)
