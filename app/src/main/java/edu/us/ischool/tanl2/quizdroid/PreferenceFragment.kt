@@ -21,6 +21,7 @@ class PreferenceFragment: PreferenceFragmentCompat() {
             dialog.setTitle("$newValue")
             sharedPrefEditor.commit()
         }
+
         var minutesSlider=PrefScreen.findPreference("minutes_seek_bar") as SeekBarPreference
         minutesSlider.value=sharedPrefs.getInt("minutes",1)
         minutesSlider.setOnPreferenceChangeListener { preference, newValue ->

@@ -66,11 +66,13 @@ class MainActivity : AppCompatActivity(), downloadListener{
 
         val interval =
             PreferenceManager.getDefaultSharedPreferences(QuizApp.applicationContext()).getInt("minutes", 1)
+        //I don't know why but multiplaying interval by 1000 results in trigger times larger than 1 minute.
+        //Keeping interval as a int seems to be closer to the minutes desired.
         Log.v("network", "Alarm interval is $interval minutes")
         alarmMgr?.setRepeating(
             AlarmManager.RTC_WAKEUP,
             SystemClock.elapsedRealtime() + interval * R.integer.base_download_interval,
-            interval.toLong(),
+            interval.toLong()*R.integer.base_download_interval,
             alarmIntent
         )
     }

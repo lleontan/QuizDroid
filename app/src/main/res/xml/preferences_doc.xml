@@ -8,10 +8,11 @@
                         android:key="url_dialog"
                         android:textSize="4px"
                         android:layout_margin="4dp"
+
     />
     <SeekBarPreference
             android:defaultValue="5"
-            android:min="2"
+            android:min="1"
             android:id="@+id/preference_minutes"
             android:max="50"
             android:key="minutes_seek_bar"
