@@ -6,13 +6,14 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/preferences_url"
                         android:key="url_dialog"
-                        android:layout_margin="10dp"
+                        android:textSize="4px"
+                        android:layout_margin="4dp"
     />
     <SeekBarPreference
-            android:defaultValue="1020"
-            android:min="10"
+            android:defaultValue="5"
+            android:min="2"
             android:id="@+id/preference_minutes"
-            android:max="4800"
+            android:max="50"
             android:key="minutes_seek_bar"
             android:summary="Minutes"
             android:title="@string/download_minutes_title" />

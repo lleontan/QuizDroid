@@ -13,6 +13,7 @@ class PreferenceFragment: PreferenceFragmentCompat() {
         val PrefScreen = preferenceScreen
         var dialog=PrefScreen.findPreference("url_dialog")
         var sharedPrefs=preferenceManager.sharedPreferences
+        dialog.isSingleLineTitle=true
         dialog.setTitle(sharedPrefs.getString("url","Set URL"))
         dialog.setOnPreferenceChangeListener { preference, newValue ->
             var sharedPrefEditor:SharedPreferences.Editor=sharedPrefs.edit()
@@ -21,7 +22,7 @@ class PreferenceFragment: PreferenceFragmentCompat() {
             sharedPrefEditor.commit()
         }
         var minutesSlider=PrefScreen.findPreference("minutes_seek_bar") as SeekBarPreference
-        minutesSlider.value=sharedPrefs.getInt("minutes",10)
+        minutesSlider.value=sharedPrefs.getInt("minutes",1)
         minutesSlider.setOnPreferenceChangeListener { preference, newValue ->
             var sharedPrefEditor:SharedPreferences.Editor=sharedPrefs.edit()
             sharedPrefEditor.putInt("minutes",newValue as Int)
